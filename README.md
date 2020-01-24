@@ -8,28 +8,28 @@ Use the npm package manager to install.
 ```bash
 npm install
 ```
+Create .env file and add following details into it.
 
-## Usage
-
-```bash
-Create .env file and following details into it.
-
-AWS_ACCESS_KEY=**********
-AWS_SECRET_ACCESS_KEY=**********
-BUCKET_NAME=**********
-QUERY=**********
-
+```bash 
+AWS_ACCESS_KEY='**********'
+AWS_SECRET_ACCESS_KEY='**********'
+BUCKET_NAME='**********'
+QUERY='**********'
+```
 You Should have one more file called db.json which contains your DB connection
 
+```bash
 {
     "host" : "*****",
     "user" :"*****",
     "password" :"*****",
     "database" : "*****"
 }
+```
+## Usage
 
-
-And finally move to Project Directory & Run 
+```bash
+Move to Project Directory & Run 
 
 npm run locally
 ```
