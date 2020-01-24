@@ -1,0 +1,24 @@
+{
+  "name": "aws-lambda-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.609.0",
+    "dateformat": "^3.0.3",
+    "dotenv": "^8.2.0",
+    "exceljs": "^3.5.0",
+    "faker": "^4.1.0",
+    "fast-xml-parser": "^3.16.0",
+    "json2xls": "^0.1.2",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "locally": "node -e \"console.log(require('./index').handler({}).then(v => {console.log(v)}))\"",
+    "calLOcal": "node -e \"console.log(require('./calcFile').handler({}).then(x => {console.log(x)}))\""
+  },
+  "author": "",
+  "license": "ISC"
+}
