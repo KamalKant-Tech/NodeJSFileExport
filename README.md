@@ -3,7 +3,7 @@ Export File Using Node JS &amp; Pushing to S3 Bucket
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the npm package manager to install.
 
 ```bash
 npm install
@@ -13,7 +13,7 @@ npm install
 
 ```bash
 Move to Project Directory & Run 
-
+```
 npm run locally
 
 ## Contributing
