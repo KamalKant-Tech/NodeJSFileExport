@@ -29,7 +29,7 @@ You Should have one more file called db.json which contains your DB connection
 ## Usage
 
 ```bash
-Move to Project Directory & Run 
+Checkout or Move to Project Directory & Run 
 
 npm run locally
 ```
