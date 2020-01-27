@@ -82,13 +82,13 @@ module.exports = class ExcelExport {
           phone = '(' + phonetemp.substr(0, 2) + ') ' + phonetemp.substr(2, 4) + ' ' + phonetemp.substr(6, 4);
         }
       }
-		  //phone = htmlspecialchars(phone);
-		  // Add the extension back in
-		  if (extension.length != 0) {
+      //phone = htmlspecialchars(phone);
+      // Add the extension back in
+      if (extension.length != 0) {
 			  phone = ' x' . extension;
-		  }
-		return phone;
-	}
+      }
+    return phone;
+  }
 
   // code to write data into excel sheet
   addRowsToExcelSheet(data,workbook,worksheet){
