@@ -56,40 +56,38 @@ module.exports = class ExcelExport {
 
   //Format Excel Phone Column
   formatPhone(phoneNumber) {
-		// Split into phone number and extension. The system doesn't currently store extensions with the phone number (as of Jan 2018). This is for future usage.
-    var phone,extension= '';
-    
-		let phone_parts = phoneNumber.split('x');
+		  // Split into phone number and extension. The system doesn't currently store extensions with the phone number (as of Jan 2018). This is for future usage.
+      var phone,extension= '';
+      let phone_parts = phoneNumber.split('x');
 
-		if (typeof phone_parts[0] !== undefined) {
-			phone = phone_parts[0].length != 0 ? phone_parts[0] : '';
-		}
-    
-		if (typeof phone_parts[0] !== undefined) {
-			extension = phone_parts[1] ? phone_parts[1] : '';
-		}
-
-    // Regular express [^0-9] looks for characters that are not a number.
-    var phonetemp =  phone.replace("/[^0-9]/",'');
-    if (phonetemp.length == 10 && phonetemp[0] != '0') {
-			phone = '(' + phonetemp.substr(0, 3) + ') ' + phonetemp.substr(3, 3) + '-' + phonetemp.substr(6, 4);
-		} else if (phonetemp.length == 10 && phonetemp[0] == '0') {
-			// Australia
-			if (phone.substr(0, 2) == '04') {
-				// Mobile 04xx xxx xxx
-				phone = phonetemp.substr(0, 4) + ' ' + phonetemp.substr(4, 3) + ' ' + phonetemp.substr(7, 3);
-			} else {
-				// Landline (0x) xxxx xxxx
-				phone = '(' + phonetemp.substr(0, 2) + ') ' + phonetemp.substr(2, 4) + ' ' + phonetemp.substr(6, 4);
-			}
-		}
-		//phone = htmlspecialchars(phone);
-		// Add the extension back in
-		if (extension.length != 0) {
-			phone = ' x' . extension;
-		}
+      if (typeof phone_parts[0] !== undefined) {
+        phone = phone_parts[0].length != 0 ? phone_parts[0] : '';
+      }
+      
+      if (typeof phone_parts[0] !== undefined) {
+        extension = phone_parts[1] ? phone_parts[1] : '';
+      }
+      
+      // Regular express [^0-9] looks for characters that are not a number.
+      var phonetemp =  phone.replace("/[^0-9]/",'');
+      if (phonetemp.length == 10 && phonetemp[0] != '0') {
+        phone = '(' + phonetemp.substr(0, 3) + ') ' + phonetemp.substr(3, 3) + '-' + phonetemp.substr(6, 4);
+      } else if (phonetemp.length == 10 && phonetemp[0] == '0') {
+        // Australia
+        if (phone.substr(0, 2) == '04') {
+          // Mobile 04xx xxx xxx
+          phone = phonetemp.substr(0, 4) + ' ' + phonetemp.substr(4, 3) + ' ' + phonetemp.substr(7, 3);
+        } else {
+          // Landline (0x) xxxx xxxx
+          phone = '(' + phonetemp.substr(0, 2) + ') ' + phonetemp.substr(2, 4) + ' ' + phonetemp.substr(6, 4);
+        }
+      }
+		  //phone = htmlspecialchars(phone);
+		  // Add the extension back in
+		  if (extension.length != 0) {
+			  phone = ' x' . extension;
+		  }
 		return phone;
-
 	}
 
   // code to write data into excel sheet
