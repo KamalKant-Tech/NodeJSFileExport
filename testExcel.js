@@ -85,7 +85,7 @@ module.exports = class ExcelExport {
       //phone = htmlspecialchars(phone);
       // Add the extension back in
       if (extension.length != 0) {
-			  phone = ' x' . extension;
+        phone = ' x' + extension;
       }
     return phone;
   }
