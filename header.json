@@ -29,6 +29,7 @@
 	"people_custom-f582"	: "License Number",
 	"people_custom-f583"	: "License Type",
 	"people_custom-f585"	: "Leadership Experience",
-	"title"	: "Title"
+	"title"	: "Title",
+	"customElementConfiguration" : {"start_date" : "m/d/yyyy","end_date" : "m/d/yyyy", "item_purchase_dt": "m/d/yyyy","org_phone": "phone"}
 }
 
