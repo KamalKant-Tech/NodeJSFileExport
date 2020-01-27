@@ -56,7 +56,7 @@ module.exports = class ExcelExport {
 
   //Format Excel Phone Column
   formatPhone(phoneNumber) {
-		  // Split into phone number and extension. The system doesn't currently store extensions with the phone number (as of Jan 2018). This is for future usage.
+      // Split into phone number and extension. The system doesn't currently store extensions with the phone number (as of Jan 2018). This is for future usage.
       var phone,extension= '';
       let phone_parts = phoneNumber.split('x');
 
