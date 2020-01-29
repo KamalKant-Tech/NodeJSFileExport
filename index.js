@@ -32,7 +32,7 @@ exports.handler = async (event, context) => {
 		message =  queryResponse.message;
 		await excelObj.writeFileToS3Bucket(queryResponse.result).then(async (res) => {
 			if(res.status ==  200) {
-				await sendMail(['kamal.kant@avolin.com'],res.Location)
+				await sendMail(['yourmailaddress'],res.Location)
 			}else {
 				return { status: statusCode, message }  = res;
 			}
