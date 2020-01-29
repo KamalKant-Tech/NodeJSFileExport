@@ -22,6 +22,17 @@ module.exports = class ExcelExport {
     });
   }
 
+  //Create SES Client Obj
+  createSESClient() {
+    return new AWS.SES({
+      accessKeyId: process.env.AWS_SERVER_ACCESS_KEY,
+      secretAccessKey: process.env.AWS_SERVER_SECRET_ACCESS_KEY,
+      region : 'us-east-1',
+      apiVersion: '2010-12-01',
+    });
+    
+  }
+
   writeFileToS3Bucket(data) {
     // create a workbook variable
     this.workbook = new Excel.Workbook();
@@ -112,6 +123,7 @@ module.exports = class ExcelExport {
               val[headerVal] = val[headerVal].length != 0 ? this.formatPhone(val[headerVal]) : '';
             }
           }
+
           rowValues.push(val[headerVal])
         },this)
       
@@ -119,25 +131,22 @@ module.exports = class ExcelExport {
       },this)
 
       //write file function to save all the data to the excel template file into S3 bucket.
-      //workbook.xlsx.write(stream)
-      return workbook.xlsx.writeFile('sample.xlsx').then(() => {
-        /* return this.createS3Client().upload({
+      //workbook.xlsx.writeFile('sample.xlsx')
+      return workbook.xlsx.write(stream).then(() => {
+        return this.createS3Client().upload({
             Key: fileName,
             Bucket: process.env.BUCKET_NAME,
             Body: stream,
+            ACL : 'public-read',
+            CacheControl : 'max-age=31536000',
             ContentType: 'application/vnd.ms-excel'
-        }).promise(); */
-        return {
-          Key: fileName,
-          Bucket: process.env.BUCKET_NAME,
-          ContentType: 'application/vnd.ms-excel'
-        }
+        }).promise()
       })
-      .then((res) => {
-        return res;
+      .then(({ETag,Location,key,Bucket}) => {
+        return { status : 200, ETag,Location,key,Bucket };
       })
-      .catch((err) => {
-        return err;
+      .catch(({err, message, code,time}) => {
+        return { status : 501, message,err, code, time};
       });
 
   }
