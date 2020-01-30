@@ -9,43 +9,19 @@ let totalRows;
 let excelObj = new eObj(headerJsonObj);
 
 exports.handler = async (event, context) => {
-	var queryResponse = await database.query(process.env.QUERY)
-		.then(rows => {
-			totalRows = rows;
-			return database.close();
+	try {
+		const result = await database.query(process.env.QUERY)
+		await database.close()
+		const excelCreateStatus = await excelObj.writeFileToS3Bucket(result)
+		return await sendMail(['kamal.kant@avolin.com'],excelCreateStatus.Location).then(() => {
+			return { status: 200, message: 'Mail Has been sent to User email address !!!'}
 		})
-		.then(async () => {
-			// do something with someRows and otherRows
-			return totalRows;
-		}, async err => {
-			return database.close().then(() => { throw err; })
-		})
-		.then((resultRows) => {
-			return { statusCode: 200, result: resultRows, message: "Working as expected", };
-		})
-		.catch(err => {
-			return { statusCode: 501, errorMessage: JSON.parse(JSON.stringify(err)).sqlMessage, message: "Query isn't executing." };
-		});
-	
-	if(queryResponse.statusCode == 200 && queryResponse.result.length > 0) {
-		statusCode =  queryResponse.statusCode;
-		message =  queryResponse.message;
-		await excelObj.writeFileToS3Bucket(queryResponse.result).then(async (res) => {
-			if(res.status ==  200) {
-				await sendMail(['kamal.kant@avolin.com'],res.Location)
-			}else {
-				return { status: statusCode, message }  = res;
-			}
-		})
+	} catch (e) {
+		if(e.code == 'ETIMEDOUT') e.message = "Unable to make database connection"
 
-	}else{
-		statusCode =  queryResponse.statusCode;
-		message =  queryResponse.message;
-	}
+		if(e.code == 'ER_BAD_FIELD_ERROR') await database.close();
 
-	return {
-		statusCode:statusCode,
-		message:message
+		return { status: (!e.hasOwnProperty('statusCode') ? 501 : e.statusCode), message : e.message }
 	}
 }
 
@@ -85,10 +61,6 @@ async function sendMail(toAddress = [], uploadedFileLink = '') {
 		if (err) console.log(err, err.stack); // an error occurred
 		else     console.log(data);           // successful response
 	}); */
-	await excelObj.createSESClient().sendEmail(params).promise().then((res) => {
-		console.log(res)
-	}).catch((err) => {
-		console.log("Error:" , err.message)
-	});
+	return excelObj.createSESClient().sendEmail(params).promise()
 }
 

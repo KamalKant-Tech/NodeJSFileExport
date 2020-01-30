@@ -142,12 +142,5 @@ module.exports = class ExcelExport {
             ContentType: 'application/vnd.ms-excel'
         }).promise()
       })
-      .then(({ETag,Location,key,Bucket}) => {
-        return { status : 200, ETag,Location,key,Bucket };
-      })
-      .catch(({err, message, code,time}) => {
-        return { status : 501, message,err, code, time};
-      });
-
   }
 }
