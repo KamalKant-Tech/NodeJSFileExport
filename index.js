@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
 		const result = await database.query(process.env.QUERY)
 		await database.close()
 		const excelCreateStatus = await excelObj.writeFileToS3Bucket(result)
-		return await sendMail(['kamal.kant@avolin.com'],excelCreateStatus.Location).then(() => {
+		return await sendMail(['******.com'],excelCreateStatus.Location).then(() => {
 			return { status: 200, message: 'Mail Has been sent to User email address !!!'}
 		})
 	} catch (e) {
