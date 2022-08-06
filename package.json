@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.609.0",
+    "aws-sdk": "^2.814.0",
     "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
     "exceljs": "^3.5.0",
