@@ -7,7 +7,7 @@
     "aws-sdk": "^2.1354.0",
     "dateformat": "^3.0.3",
     "dotenv": "^8.2.0",
-    "exceljs": "^3.5.0",
+    "exceljs": "^3.10.0",
     "faker": "^4.1.0",
     "fast-xml-parser": "^3.16.0",
     "json2xls": "^0.1.2",
